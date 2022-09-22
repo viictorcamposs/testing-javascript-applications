@@ -1,20 +1,20 @@
-const { objectToQueryString } = require("./queryString");
+const { objectToQueryString } = require('./queryString')
 
-describe("Object to query string", () => {
-  it("should create a valid query string when an object is provided", () => {
+describe('Object to query string', () => {
+  it('should create a valid query string when an object is provided', () => {
     const obj = {
-      name: "Victor",
-      profession: "software developer",
-    };
+      name: 'Victor',
+      profession: 'software developer',
+    }
 
     expect(objectToQueryString(obj)).toBe(
-      "name=Victor&profession=software2%developer"
-    );
+      'name=Victor&profession=software2%developer',
+    )
 
-    obj.company = "conquer holding";
+    obj.company = 'conquer holding'
 
     expect(objectToQueryString(obj)).toBe(
-      "name=Victor&profession=software2%developer&company=conquer2%holding"
-    );
-  });
-});
+      'name=Victor&profession=software2%developer&company=conquer2%holding',
+    )
+  })
+})
