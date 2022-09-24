@@ -37,7 +37,9 @@ describe('Object to query string', () => {
       },
     }
 
-    expect(() => queryString(obj)).toThrowError()
+    expect(() => queryString(obj)).toThrowError(
+      new Error('Value cannot be an instance of object'),
+    )
   })
 
   it('should convert a query string to object', () => {
@@ -62,10 +64,10 @@ describe('Object to query string', () => {
   })
 
   it('should convert a query string to an object taking care of comma separated values', () => {
-    const qs = 'name=Victor,Campos&abilities=typescript,react'
+    const qs = 'name=Victor&abilities=typescript,react'
 
     const result = {
-      name: ['Victor', 'Campos'],
+      name: 'Victor',
       abilities: ['typescript', 'react'],
     }
 
