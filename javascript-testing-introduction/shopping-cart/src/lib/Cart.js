@@ -3,6 +3,13 @@ import { add, remove, find } from 'lodash'
 export class Cart {
   items = []
 
+  getTotal() {
+    return this.items.reduce(
+      (acc, { product, quantity }) => acc + product.price * quantity,
+      0,
+    )
+  }
+
   add(item) {
     const itemToFind = { product: item.product }
 
@@ -13,10 +20,7 @@ export class Cart {
     this.items.push(item)
   }
 
-  getTotal() {
-    return this.items.reduce(
-      (acc, { product, quantity }) => acc + product.price * quantity,
-      0,
-    )
+  remove(product) {
+    remove(this.items, { product })
   }
 }
