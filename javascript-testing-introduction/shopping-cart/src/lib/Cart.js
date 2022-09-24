@@ -4,10 +4,11 @@ export class Cart {
   items = []
 
   checkout() {
-    return {
-      total: this.getTotal(),
-      items: this.items,
-    }
+    const summary = this.summary()
+
+    this.items = []
+
+    return summary
   }
 
   getTotal() {
@@ -15,6 +16,16 @@ export class Cart {
       (acc, { product, quantity }) => acc + product.price * quantity,
       0,
     )
+  }
+
+  summary() {
+    const total = this.getTotal()
+    const items = this.items
+
+    return {
+      total,
+      items,
+    }
   }
 
   add(item) {

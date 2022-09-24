@@ -65,7 +65,7 @@ describe('Cart', () => {
   })
 
   describe('checkout()', () => {
-    it('should return an object with the total and the list of products', () => {
+    it('should return an object with the total amount and the list of products', () => {
       cart.add({
         product,
         quantity: 5,
@@ -77,6 +77,32 @@ describe('Cart', () => {
       })
 
       expect(cart.checkout()).toMatchSnapshot()
+    })
+
+    it('should return an object with the total amount and the list of products when summary() is called', () => {
+      cart.add({
+        product,
+        quantity: 5,
+      })
+
+      cart.add({
+        product: product2,
+        quantity: 4,
+      })
+
+      expect(cart.summary()).toMatchSnapshot()
+      expect(cart.getTotal()).toBeGreaterThan(0)
+    })
+
+    it('should reset the cart when checkout() is called', () => {
+      cart.add({
+        product,
+        quantity: 3,
+      })
+
+      cart.checkout()
+
+      expect(cart.getTotal()).toEqual(0)
     })
   })
 })
