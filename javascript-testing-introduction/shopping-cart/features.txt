@@ -1,0 +1,6 @@
+- should be able to get the total amount of the cart
+- should be able to store more than one item in the cart
+- should be able to add item to the cart
+- should be able to remove item from the cart
+- should be able to get a summary of the cart
+- should clear the cart when checkout function is called
