@@ -63,4 +63,20 @@ describe('Cart', () => {
       expect(cart.getTotal()).toEqual(41872)
     })
   })
+
+  describe('checkout()', () => {
+    it('should return an object with the total and the list of products', () => {
+      cart.add({
+        product,
+        quantity: 5,
+      })
+
+      cart.add({
+        product: product2,
+        quantity: 4,
+      })
+
+      expect(cart.checkout()).toMatchSnapshot()
+    })
+  })
 })
