@@ -4,6 +4,24 @@ import Money from 'dinero.js'
 Money.defaultCurrency = 'BRL'
 Money.defaultPrecision = 2
 
+const calculatePercentageDiscount = (amount, item) => {
+  if (item.quantity > item.condition?.minimum) {
+    return amount.percentage(item.condition.percentage)
+  }
+
+  return Money({ amount: 0 })
+}
+
+const calculateQuantityDiscount = (amount, item) => {
+  const isEven = item.quantity % 2 === 0
+
+  if (item.condition?.quantity && item.quantity > item.condition?.quantity) {
+    return amount.percentage(isEven ? 50 : 40)
+  }
+
+  return Money({ amount: 0 })
+}
+
 export class Cart {
   items = []
 
@@ -16,13 +34,14 @@ export class Cart {
   }
 
   getTotal() {
-    return this.items.reduce((acc, { product, quantity, condition }) => {
-      const amount = Money({ amount: product.price * quantity })
-      let discount = Money({ amount: 0 })
+    return this.items.reduce((acc, item) => {
+      const amount = Money({ amount: item.product.price * item.quantity })
 
-      if (condition && condition.percentage && quantity >= condition.minimum) {
-        discount = amount.percentage(condition.percentage)
-      }
+      const discount = item.condition?.percentage
+        ? calculatePercentageDiscount(amount, item)
+        : item.condition?.quantity
+        ? calculateQuantityDiscount(amount, item)
+        : Money({ amount: 0 })
 
       return acc.add(amount).subtract(discount)
     }, Money({ amount: 0 }))
