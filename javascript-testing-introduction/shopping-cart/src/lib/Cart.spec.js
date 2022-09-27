@@ -178,5 +178,47 @@ describe('Cart', () => {
 
       expect(cart.getTotal().getAmount()).toEqual(35388)
     })
+
+    it('should receive two or more conditions and determine/apply the best discount. (first case)', () => {
+      const condition1 = {
+        percentage: 30, // max 30%
+        minimum: 2,
+      }
+
+      const condition2 = {
+        quantity: 2, // odd = 40% | even = 50%
+      }
+
+      cart.add({
+        product,
+        condition: [condition1, condition2],
+        quantity: 5,
+      })
+
+      // 35388 * 5 = 176940 * 0,6 = 106164
+
+      expect(cart.getTotal().getAmount()).toEqual(106164)
+    })
+
+    it('should receive two or more conditions and determine/apply the best discount. (second case)', () => {
+      const condition1 = {
+        percentage: 80, // max 80%
+        minimum: 2,
+      }
+
+      const condition2 = {
+        quantity: 2, // odd = 40% | even = 50%
+      }
+
+      cart.add({
+        product,
+        condition: [condition1, condition2],
+        quantity: 5,
+      })
+
+      // 35388 * 5 = 176940 * 0,2 = 35388
+
+      expect(cart.getTotal().getAmount()).toEqual(35388)
+    })
   })
 })

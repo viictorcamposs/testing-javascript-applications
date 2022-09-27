@@ -4,22 +4,44 @@ import Money from 'dinero.js'
 Money.defaultCurrency = 'BRL'
 Money.defaultPrecision = 2
 
-const calculatePercentageDiscount = (amount, item) => {
-  if (item.quantity > item.condition?.minimum) {
-    return amount.percentage(item.condition.percentage)
+const calculatePercentageDiscount = (amount, { quantity, condition }) => {
+  if (quantity > condition?.minimum) {
+    return amount.percentage(condition.percentage)
   }
 
   return Money({ amount: 0 })
 }
 
-const calculateQuantityDiscount = (amount, item) => {
-  const isEven = item.quantity % 2 === 0
+const calculateQuantityDiscount = (amount, { quantity, condition }) => {
+  const isEven = quantity % 2 === 0
 
-  if (item.condition?.quantity && item.quantity > item.condition?.quantity) {
+  if (condition?.quantity && quantity > condition?.quantity) {
     return amount.percentage(isEven ? 50 : 40)
   }
 
   return Money({ amount: 0 })
+}
+
+const calculateDiscount = (amount, quantity, _condition) => {
+  const list = Array.isArray(_condition) ? _condition : [_condition]
+
+  const [higherDiscount] = list
+    .map(condition => {
+      if (condition.percentage) {
+        return calculatePercentageDiscount(amount, {
+          condition,
+          quantity,
+        }).getAmount()
+      } else if (condition.quantity) {
+        return calculateQuantityDiscount(amount, {
+          condition,
+          quantity,
+        }).getAmount()
+      }
+    })
+    .sort((a, b) => b - a)
+
+  return Money({ amount: higherDiscount })
 }
 
 export class Cart {
@@ -34,14 +56,14 @@ export class Cart {
   }
 
   getTotal() {
-    return this.items.reduce((acc, item) => {
-      const amount = Money({ amount: item.product.price * item.quantity })
+    return this.items.reduce((acc, { quantity, product, condition }) => {
+      const amount = Money({ amount: product.price * quantity })
 
-      const discount = item.condition?.percentage
-        ? calculatePercentageDiscount(amount, item)
-        : item.condition?.quantity
-        ? calculateQuantityDiscount(amount, item)
-        : Money({ amount: 0 })
+      let discount = Money({ amount: 0 })
+
+      if (condition) {
+        discount = calculateDiscount(amount, quantity, condition)
+      }
 
       return acc.add(amount).subtract(discount)
     }, Money({ amount: 0 }))
