@@ -2,9 +2,9 @@ import Search from './index'
 import { render, screen } from '@testing-library/react'
 
 describe('Search', () => {
-  it('should render Search component', () => {
+  it('should render a form', () => {
     render(<Search />)
 
-    expect(screen.getByTestId('search')).toBeInTheDocument()
+    expect(screen.getByRole('form')).toBeInTheDocument()
   })
 })
