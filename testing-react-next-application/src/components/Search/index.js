@@ -1,7 +1,11 @@
+import { useState } from 'react'
+
 const Search = ({ handleSearch }) => {
+  const [searchInput, setSearchInput] = useState('')
+
   return (
     <form
-      onSubmit={handleSearch}
+      onSubmit={() => handleSearch(searchInput)}
       name="search-form"
       className="relative mt-6 max-w-lg mx-auto"
     >
@@ -19,8 +23,9 @@ const Search = ({ handleSearch }) => {
 
       <input
         className="w-full border rounded-md pl-10 pr-4 py-2 focus:border-blue-500 focus:outline-none focus:shadow-outline"
-        type="text"
+        type="search"
         placeholder="Search"
+        onChange={event => setSearchInput(event.target.value)}
       />
     </form>
   )
