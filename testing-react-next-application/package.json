@@ -7,10 +7,15 @@
     "build": "next build",
     "start": "next start",
     "test": "jest",
+    "test:unit": "jest --config=jest-unit.config.js",
+    "test:unit:watch": "jest --config=jest-unit.config.js --watchAll",
+    "test:integration": "jest --config=jest-integration.config.js",
+    "test:integration:watch": "jest --config=jest-integration.config.js --watchAll",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "axios": "0.27.2",
     "next": "latest",
     "react": "18.1.0",
     "react-dom": "18.1.0",
@@ -25,6 +30,7 @@
     "babel-jest": "^29.1.0",
     "jest": "^29.1.1",
     "jest-environment-jsdom": "^29.1.1",
+    "miragejs": "^0.1.45",
     "postcss": "^8.4.14",
     "postcss-preset-env": "^7.8.2"
   }
