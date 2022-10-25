@@ -1,4 +1,4 @@
-import { screen, render } from '@testing-library/react'
+import { screen, render, waitFor } from '@testing-library/react'
 
 import ProductList from '../../pages/index'
 
@@ -11,7 +11,7 @@ describe('ProductList', () => {
     expect(screen.getByTestId('product-list')).toBeInTheDocument()
   })
 
-  fit('should render the ProductCard component 10 times', async () => {
+  it('should render the ProductCard component 10 times', async () => {
     await waitFor(() => {
       expect(screen.getAllByTestId('product-card')).toHaveLength(10)
     })

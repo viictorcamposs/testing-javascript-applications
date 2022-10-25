@@ -22,8 +22,10 @@ const CartItem = ({ product }) => {
           src={product.image}
           alt={product.title}
         />
+
         <div className="mx-3">
           <h3 className="text-sm text-gray-600">{product.title}</h3>
+
           <div className="flex items-center mt-2">
             <button
               onClick={decreaseQuantity}

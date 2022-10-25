@@ -2,6 +2,10 @@ import Cart from '../components/Cart'
 
 import '../styles/global.css'
 
+if (process.env.NODE_ENV === 'development') {
+  require('../miragejs/server').makeServer()
+}
+
 const App = ({ Component, pageProps }) => {
   return (
     <div className="bg-white">
