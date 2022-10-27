@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react'
-
 import { useFetchProducts } from '../hooks/useFetchProducts'
 
 import ProductCard from '../components/ProductCard'

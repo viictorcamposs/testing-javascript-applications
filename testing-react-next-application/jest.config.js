@@ -4,6 +4,7 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/components/**/*.(js|jsx)',
     '<rootDir>/src/pages/**/*.(js|jsx)',
+    '<rootDir>/src/hooks/**/*.(js|jsx)',
   ],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',

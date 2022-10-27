@@ -26,6 +26,7 @@
     "@testing-library/dom": "^8.18.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
+    "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.4.3",
     "autoprefixer": "^10.4.7",
     "babel-jest": "^29.1.0",
@@ -33,6 +34,7 @@
     "jest-environment-jsdom": "^29.1.1",
     "miragejs": "^0.1.45",
     "postcss": "^8.4.14",
-    "postcss-preset-env": "^7.8.2"
+    "postcss-preset-env": "^7.8.2",
+    "react-test-renderer": "^18.2.0"
   }
 }

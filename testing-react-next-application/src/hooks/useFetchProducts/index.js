@@ -16,6 +16,7 @@ export const useFetchProducts = () => {
         }
       })
       .catch(() => {
+        // istanbul ignore next
         if (mounted) {
           setError(true)
         }
