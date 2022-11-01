@@ -33,7 +33,16 @@ describe('ProductList', () => {
     })
   })
 
-  it.todo('should render the no product message')
+  it('should render the "no products" message', async () => {
+    server.createList('product', 1)
+
+    renderProductList()
+
+    await waitFor(() => {
+      expect(screen.getByTestId('no-products-message')).toBeInTheDocument()
+    })
+  })
+
   it.todo('should render the Search component')
   it.todo('should filter the product list when a search is performed')
   it.todo('should display error message when promise rejects')
